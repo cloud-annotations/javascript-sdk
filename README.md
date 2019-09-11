@@ -1,10 +1,12 @@
 # Object Detection SDK
+The Cloud Annotations Object Detection SDK makes it easy to use your custom trained object detection models in the browser or on the backend with TensorFlow.js. Simply point the object detector to your `model_web` folder and pass the loaded model an `<canvas>`, `<img>` or `<video>` reference.
 
-## Usage
+## Installation
 ```bash
 npm install @cloud-annotations/object-detection
 ```
 
+## Usage
 ```js
 import objectDetector from '@cloud-annotations/object-detection'
 

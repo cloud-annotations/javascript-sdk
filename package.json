@@ -1,0 +1,21 @@
+{
+  "name": "@cloud-annotations/object-detection",
+  "version": "0.0.1",
+  "description": "Custom object detection using TensorFlow.js",
+  "keywords": [],
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloud-annotations/object-detection.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cloud-annotations/object-detection.js/issues"
+  },
+  "homepage": "https://github.com/cloud-annotations/object-detection.js",
+  "author": "Nick Bourdakos",
+  "license": "MIT",
+  "dependencies": {
+    "@tensorflow/tfjs": "1.0.0"
+  },
+  "devDependencies": {}
+}

@@ -30,7 +30,7 @@ const predictions = await model.detect(img)
 
 ## Usage via Script Tag
 No npm install required. Just import via the script tag.
-```
+```html
 <script src="https://cdn.jsdelivr.net/npm/@cloud-annotation/object-detection"> </script>
 <script>
 const img = document.getElementById('img')

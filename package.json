@@ -1,6 +1,6 @@
 {
   "name": "@cloud-annotations/object-detection",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Custom object detection using TensorFlow.js",
   "jsdelivr": "dist/object-detection.min.js",
   "keywords": [

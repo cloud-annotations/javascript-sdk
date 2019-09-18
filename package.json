@@ -1,8 +1,13 @@
 {
   "name": "@cloud-annotations/object-detection",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Custom object detection using TensorFlow.js",
-  "keywords": [],
+  "jsdelivr": "dist/object-detection.min.js",
+  "keywords": [
+    "object detection",
+    "machine learning",
+    "bounding boxes"
+  ],
   "main": "src/index.js",
   "repository": {
     "type": "git",
@@ -17,5 +22,17 @@
   "dependencies": {
     "@tensorflow/tfjs": "1.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "rollup": "^1.21.4",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-uglify": "^6.0.3"
+  },
+  "scripts": {
+    "build": "rimraf dist",
+    "deploy": "yarn build && rollup -c && yarn publish"
+  }
 }

@@ -1,24 +1,31 @@
-# Object Detection React App
+# Object Detection JavaScript SDK
+The Cloud Annotations Object Detection SDK makes it easy to use your custom trained object detection models in the browser or on the backend with TensorFlow.js. Simply point the object detector to your `model_web` folder and pass the loaded model a `<canvas>`, `<img>` or `<video>` reference.
 
-You can find an in depth walkthrough for training a TensorFlow.js model [here](https://github.com/cloud-annotations/training/).
-
-## Setup
-`git clone` the repo and `cd` into it by running the following command:
-
+## Installation
 ```bash
-git clone https://github.com/cloud-annotations/object-detection-react.git
-cd object-detection-react
+npm install @cloud-annotations/object-detection
 ```
 
-### `npm install`
+## Usage
+```js
+import objectDetector from '@cloud-annotations/object-detection'
 
-> **Note: You’ll need to have Node 8.10.0 or later on your local development machine.** You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to easily switch Node versions between different projects.
+const img = document.getElementById('img')
 
-## Add TensorFlow.js Model to the App
-Copy the `model_web` directory generated from the object detection walkthrough and paste it into the `public` folder of this repo.
+const model = await objectDetector.load('/model_web')
+const predictions = await model.detect(img)
 
-## Run the App
-### `npm start`
+// predictions =>
+[{
+  bbox: [x, y, width, height],
+  class: 'dog',
+  score: 0.92
+},
+{
+  bbox: [x, y, width, height],
+  class: 'cat',
+  score: 0.72
+}]
+```
 
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
+Example usage: [Real-Time Object Detection With React](https://github.com/cloud-annotations/object-detection-react).

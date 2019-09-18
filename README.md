@@ -31,11 +31,14 @@ const predictions = await model.detect(img)
 ## Usage via Script Tag
 No npm install required. Just import via the script tag.
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@cloud-annotation/object-detection"> </script>
+<script src="https://cdn.jsdelivr.net/npm/@cloud-annotation/object-detection"></script>
 <script>
-const img = document.getElementById('img')
-const model = await objectDetector.load('/model_web')
-const predictions = await model.detect(img)
+  const img = document.getElementById('img')
+  objectDetector.load('/model_web')
+    .then(model => model.detect(img))
+    .then(predictions => {
+      console.log(predictions)
+    })
 </script>
 ```
 

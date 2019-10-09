@@ -1,4 +1,7 @@
 # Object Detection JavaScript SDK
+[![NPM Version](https://img.shields.io/npm/v/@cloud-annotations/object-detection.svg)](https://npmjs.org/package/@cloud-annotations/object-detection)
+[![NPM Downloads](https://img.shields.io/npm/dm/@cloud-annotations/object-detection.svg)](https://npmjs.org/package/@cloud-annotations/object-detection)
+
 The Cloud Annotations Object Detection SDK makes it easy to use your custom trained object detection models in the browser or on the backend with TensorFlow.js. Simply point the object detector to your `model_web` folder and pass the loaded model a `<canvas>`, `<img>` or `<video>` reference.
 
 ## Installation

@@ -16,32 +16,6 @@ npm install @cloud-annotations/models
 import models from '@cloud-annotations/models'
 
 const model = await models.load('/model_web')
-
-const img = document.getElementById('img')
-
-// for object detection
-const predictions = await model.detect(img)
-
-// predictions =>
-[{
-  label: 'dog',
-  bbox: [x, y, width, height],
-  score: 0.92
-},
-{
-  label: 'cat',
-  bbox: [x, y, width, height],
-  score: 0.72
-}]
-
-// for classification
-const predictions = await model.classify(img)
-
-// predictions =>
-[
-  { label: 'dog', score: 0.92 },
-  { label: 'cat', score: 0.72 }
-]
 ```
 
 ### Object detection

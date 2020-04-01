@@ -1,6 +1,6 @@
 {
   "name": "@cloud-annotations/models",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Cloud Annotations models for TensorFlow.js",
   "jsdelivr": "dist/models.min.js",
   "keywords": [
@@ -23,7 +23,7 @@
   "author": "Nick Bourdakos",
   "license": "MIT",
   "dependencies": {
-    "@tensorflow/tfjs": "1.0.0"
+    "@tensorflow/tfjs": "1.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.3",

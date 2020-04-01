@@ -118,7 +118,7 @@ const runClassificationPrediction = async (graph, labels, input, options) => {
     return small.expandDims(0).toFloat();
   });
 
-  const results = graph.execute(batched);
+  const results = graph.execute({ Placeholder: batched });
 
   const scores = results.arraySync()[0];
 
@@ -135,6 +135,21 @@ const runClassificationPrediction = async (graph, labels, input, options) => {
   return finalScores;
 };
 
+const CONTROL_FLOW_OPS = ["Switch", "Merge", "Enter", "Exit", "NextIteration"];
+const DYNAMIC_SHAPE_OPS = [
+  "NonMaxSuppressionV2",
+  "NonMaxSuppressionV3",
+  "Where"
+];
+
+const checkControlFlow = graph => {
+  return (
+    Object.values(graph.executor.graph.nodes).find(n =>
+      CONTROL_FLOW_OPS.includes(n.op)
+    ) !== undefined
+  );
+};
+
 export default {
   load: async path => {
     const graphPath = path + "/model.json";
@@ -143,8 +158,10 @@ export default {
     const labelsPromise = fetch(labelsPath).then(data => data.json());
     const [graph, labels] = await Promise.all([graphPromise, labelsPromise]);
 
+    const hasControlFlowOps = checkControlFlow(graph);
+
     // If there are control flow ops it's probably object detection.
-    if (graph.executor.isControlFlowModel) {
+    if (hasControlFlowOps) {
       return {
         type: TYPE_DETECTION,
         detect: async (input, options) =>

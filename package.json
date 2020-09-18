@@ -1,53 +1,26 @@
 {
-  "name": "@cloud-annotations/models",
-  "version": "0.1.1",
-  "description": "Cloud Annotations models for TensorFlow.js",
-  "jsdelivr": "dist/models.min.js",
-  "keywords": [
-    "image detection",
-    "object detection",
-    "machine learning",
-    "bounding boxes",
-    "classification",
-    "computer vision"
-  ],
-  "main": "src/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/cloud-annotations/tfjs-models.git"
-  },
-  "bugs": {
-    "url": "https://github.com/cloud-annotations/tfjs-models/issues"
-  },
-  "homepage": "https://github.com/cloud-annotations/tfjs-models",
-  "author": "Nick Bourdakos",
-  "license": "MIT",
-  "dependencies": {
-    "@tensorflow/tfjs": "1.4.0"
+  "private": true,
+  "scripts": {
+    "changelog": "lerna-changelog",
+    "test": "lerna run test",
+    "watch": "lerna run --parallel watch",
+    "build": "lerna run build"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.6.0",
-    "@babel/plugin-transform-runtime": "^7.6.0",
-    "@babel/preset-env": "^7.8.3",
-    "@babel/register": "^7.8.3",
-    "@babel/runtime": "^7.8.4",
-    "mocha": "^7.0.0",
-    "rimraf": "^3.0.0",
-    "rollup": "^1.21.4",
-    "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-uglify": "^6.0.3",
-    "serve": "^11.3.0"
+    "husky": "^4.2.5",
+    "lerna": "^3.22.1",
+    "lerna-changelog": "^1.0.1",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.6"
   },
-  "scripts": {
-    "build": "rimraf dist",
-    "deploy": "yarn build && rollup -c && yarn publish --access public",
-    "test": "yarn build && mocha --require @babel/register",
-    "btest": "yarn build && rollup -c && serve"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
-  "files": [
-    "/dist"
-  ]
+  "lint-staged": {
+    "*.{ts,js,md,css,html}": [
+      "prettier --write"
+    ]
+  }
 }

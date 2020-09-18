@@ -1,0 +1,16 @@
+{
+  "name": "@cloud-annotations/core",
+  "private": true,
+  "version": "0.0.2",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "devDependencies": {
+    "typescript": "^3.9.6"
+  },
+  "scripts": {
+    "watch": "yarn tsc --watch",
+    "build": "yarn clean && yarn tsc",
+    "clean": "rimraf dist"
+  }
+}

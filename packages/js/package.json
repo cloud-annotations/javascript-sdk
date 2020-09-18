@@ -1,0 +1,52 @@
+{
+  "name": "@cloud-annotations/models",
+  "version": "0.1.1",
+  "description": "Cloud Annotations models for TensorFlow.js",
+  "main": "dist/models.node.js",
+  "module": "dist/index.js",
+  "jsdelivr": "dist/models.min.js",
+  "unpkg": "dist/models.min.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "image detection",
+    "object detection",
+    "machine learning",
+    "bounding boxes",
+    "classification",
+    "computer vision"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloud-annotations/javascript-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cloud-annotations/javascript-sdk/issues"
+  },
+  "homepage": "https://github.com/cloud-annotations/javascript-sdk",
+  "author": "Nick Bourdakos",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-node-resolve": "^8.1.0",
+    "@rollup/plugin-sucrase": "^3.1.0",
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^14.0.14",
+    "chai": "^4.2.0",
+    "lerna": "^3.22.1",
+    "mocha": "^8.0.1",
+    "mocha-jsdom": "^2.0.0",
+    "rollup": "^2.21.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
+  },
+  "dependencies": {
+    "@cloud-annotations/core": "^0.0.2",
+    "@tensorflow/tfjs": "1.4.0"
+  },
+  "scripts": {
+    "build": "yarn clean && rollup -c",
+    "clean": "rimraf dist"
+  }
+}

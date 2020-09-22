@@ -1,6 +1,6 @@
 {
   "name": "@cloud-annotations/models-node-gpu",
-  "version": "0.1.2",
+  "version": "0.0.1",
   "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^13.0.0",
@@ -30,5 +30,6 @@
     "test": "mocha -r ts-node/register \"src/**/?(*.)test.ts\"",
     "build": "yarn clean && rollup -c",
     "clean": "rimraf dist"
-  }
+  },
+  "gitHead": "cc6ac0b96f4299b2761b6e9b2021625fc20dcd7b"
 }

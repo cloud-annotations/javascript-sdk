@@ -52,5 +52,6 @@
     "build": "yarn clean && rollup -c",
     "clean": "rimraf dist",
     "test": "karma start --single-run"
-  }
+  },
+  "gitHead": "cc6ac0b96f4299b2761b6e9b2021625fc20dcd7b"
 }

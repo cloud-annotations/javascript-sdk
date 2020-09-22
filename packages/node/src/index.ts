@@ -2,6 +2,8 @@ import { promises as fs } from "fs";
 import * as tf from "@tensorflow/tfjs-node";
 import core from "@cloud-annotations/core";
 
+export * from "@cloud-annotations/core";
+
 const models = {
   load: async (path: string) => {
     const graphPath = path + "/model.json";

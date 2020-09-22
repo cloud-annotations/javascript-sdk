@@ -1,7 +1,60 @@
-const TYPE_DETECTION = "detection";
-const TYPE_CLASSIFICATION = "classification";
+import * as _tf from "@tensorflow/tfjs";
+import { GraphModel, Rank, Tensor, backend_util } from "@tensorflow/tfjs";
 
-const calculateMaxScores = (scores: any, numBoxes: any, numClasses: any) => {
+export enum ModelType {
+  Classification = "classification",
+  Detection = "detection",
+}
+
+export interface DetectionOptions {
+  maxNumberOfBoxes?: number;
+  iouThreshold?: number;
+  scoreThreshold?: number;
+}
+
+export interface DetectionResult {
+  bbox: number[];
+  class: string;
+  label: string;
+  score: number;
+}
+
+export interface DetectionModel {
+  type: ModelType.Detection;
+  detect: (
+    input: any,
+    options?: DetectionOptions
+  ) => Promise<DetectionResult[]>;
+  classify: (
+    input: any,
+    options?: ClassificationOptions
+  ) => Promise<ClassificationResult[]>;
+}
+
+export interface ClassificationOptions {}
+
+export interface ClassificationResult {
+  label: string;
+  score: number;
+}
+
+export interface ClassificationModel {
+  type: ModelType.Classification;
+  detect: (
+    input: any,
+    options?: DetectionOptions
+  ) => Promise<DetectionResult[]>;
+  classify: (
+    input: any,
+    options?: ClassificationOptions
+  ) => Promise<ClassificationResult[]>;
+}
+
+const calculateMaxScores = (
+  scores: backend_util.TypedArray,
+  numBoxes: number,
+  numClasses: number
+) => {
   const maxes = [];
   const classes = [];
   for (let i = 0; i < numBoxes; i++) {
@@ -20,13 +73,13 @@ const calculateMaxScores = (scores: any, numBoxes: any, numClasses: any) => {
 };
 
 const buildDetectedObjects = (
-  width: any,
-  height: any,
-  boxes: any,
-  scores: any,
-  indexes: any,
-  classes: any,
-  labels: any
+  width: number,
+  height: number,
+  boxes: backend_util.TypedArray,
+  scores: number[],
+  indexes: backend_util.TypedArray,
+  classes: number[],
+  labels: string[]
 ) => {
   const count = indexes.length;
   const objects = [];
@@ -45,8 +98,8 @@ const buildDetectedObjects = (
     bbox[3] = maxY - minY;
     objects.push({
       bbox: bbox,
-      class: labels[parseInt(classes[indexes[i]])], // deprecate.
-      label: labels[parseInt(classes[indexes[i]])],
+      class: labels[classes[indexes[i]]], // deprecate.
+      label: labels[classes[indexes[i]]],
       score: scores[indexes[i]],
     });
   }
@@ -54,17 +107,18 @@ const buildDetectedObjects = (
 };
 
 const runObjectDetectionPrediction = async (
-  tf: any,
-  graph: any,
-  labels: any,
+  tf: typeof _tf,
+  graph: GraphModel,
+  labels: string[],
   input: any,
   { maxNumberOfBoxes = 20, iouThreshold = 0.5, scoreThreshold = 0.5 } = {}
 ) => {
-  const batched = tf.tidy(() => {
-    let img;
+  const batched: Tensor<Rank.R4> = tf.tidy(() => {
+    let img: Tensor<Rank.R3>;
     try {
       img = tf.browser.fromPixels(input);
     } catch {
+      // @ts-ignore
       img = tf.node.decodeImage(input, 3);
     }
     // Reshape to a single-element batch so we can pass it to executeAsync.
@@ -74,7 +128,7 @@ const runObjectDetectionPrediction = async (
   const height = batched.shape[1];
   const width = batched.shape[2];
 
-  const result = await graph.executeAsync(batched);
+  const result = (await graph.executeAsync(batched)) as Tensor<Rank.R4>[];
 
   const scores = result[0].dataSync();
   const boxes = result[1].dataSync();
@@ -130,20 +184,18 @@ const runObjectDetectionPrediction = async (
 };
 
 const runClassificationPrediction = async (
-  tf: any,
-  graph: any,
-  labels: any,
+  tf: typeof _tf,
+  graph: GraphModel,
+  labels: string[],
   input: any,
-  options = {}
+  _options = {}
 ) => {
-  if (options) {
-    // no op
-  }
   const batched = tf.tidy(() => {
-    let img;
+    let img: Tensor<Rank.R3>;
     try {
       img = tf.browser.fromPixels(input);
     } catch {
+      // @ts-ignore
       img = tf.node.decodeImage(input, 3);
     }
     const small = tf.image.resizeBilinear(img, [224, 224]).div(255);
@@ -152,32 +204,28 @@ const runClassificationPrediction = async (
     return small.expandDims(0).toFloat();
   });
 
-  const results = graph.execute({ Placeholder: batched });
+  const results = graph.execute({ Placeholder: batched }) as Tensor<Rank.R2>;
 
   const scores = results.arraySync()[0];
 
   results.dispose();
   batched.dispose();
 
-  const finalScores = scores.map((score: any, i: any) => ({
+  const finalScores = scores.map((score, i) => ({
     label: labels[i],
     score: score,
   }));
 
-  finalScores.sort((a: any, b: any) => b.score - a.score);
+  finalScores.sort((a, b) => b.score - a.score);
 
   return finalScores;
 };
 
 const CONTROL_FLOW_OPS = ["Switch", "Merge", "Enter", "Exit", "NextIteration"];
-// const DYNAMIC_SHAPE_OPS = [
-//   "NonMaxSuppressionV2",
-//   "NonMaxSuppressionV3",
-//   "Where",
-// ];
 
-const checkControlFlow = (graph: any) => {
+const checkControlFlow = (graph: GraphModel) => {
   return (
+    // @ts-ignore
     Object.values(graph.executor.graph.nodes).find((n: any) =>
       CONTROL_FLOW_OPS.includes(n.op)
     ) !== undefined
@@ -185,25 +233,33 @@ const checkControlFlow = (graph: any) => {
 };
 
 export default {
-  _init: async (tf: any, graph: any, labels: any) => {
+  _init: async (
+    tf: typeof _tf,
+    graph: GraphModel,
+    labels: string[]
+  ): Promise<DetectionModel | ClassificationModel> => {
     const hasControlFlowOps = checkControlFlow(graph);
 
     // If there are control flow ops it's probably object detection.
     if (hasControlFlowOps) {
       return {
-        type: TYPE_DETECTION,
-        detect: async (input: any, options?: any) =>
+        type: ModelType.Detection,
+        detect: async (input: any, options?: DetectionOptions) =>
           await runObjectDetectionPrediction(tf, graph, labels, input, options),
-        classify: async () => {},
+        classify: async (_input: any, _options?: ClassificationOptions) => {
+          throw Error("use `model.detect`");
+        },
       };
     }
 
     // Otherwise, probably classification.
     return {
-      type: TYPE_CLASSIFICATION,
-      classify: async (input: any, options?: any) =>
+      type: ModelType.Classification,
+      classify: async (input: any, options?: ClassificationOptions) =>
         await runClassificationPrediction(tf, graph, labels, input, options),
-      detect: async () => {},
+      detect: async (_input: any, _options?: DetectionOptions) => {
+        throw Error("use `model.classify`");
+      },
     };
   },
 };

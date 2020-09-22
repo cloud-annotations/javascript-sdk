@@ -6,7 +6,11 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
+    "rimraf": "^3.0.2",
     "typescript": "^3.9.6"
+  },
+  "peerDependencies": {
+    "@tensorflow/tfjs": "1.4.0"
   },
   "scripts": {
     "watch": "yarn tsc --watch",

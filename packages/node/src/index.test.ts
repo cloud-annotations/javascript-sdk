@@ -5,6 +5,7 @@ import { expect } from "chai";
 import * as tf from "@tensorflow/tfjs-node";
 
 import models from "./index";
+import { DetectionModel, ModelType } from "@cloud-annotations/core";
 
 interface Image {
   image: string;
@@ -24,7 +25,7 @@ const CLASSIFICATION = path.join(FIXTURES_PATH, "classification.js");
 const objectDetectionModels = require(OBJECT_DETECTION) as Model[];
 const classificationModels = require(CLASSIFICATION) as Model[];
 
-function infersProperType(m: Model, type: string) {
+function infersProperType(m: Model, type: ModelType) {
   it("infers proper type", async () => {
     const modelPath = path.join(FIXTURES_PATH, m.model);
     const model = await models.load(modelPath);
@@ -57,9 +58,7 @@ function shouldGenerateOutput(m: Model, detect: "detect" | "classify") {
     for (const item of m.images) {
       const imagePath = path.join(FIXTURES_PATH, item.image);
       const image = fs.readFileSync(imagePath);
-
       const results = await model[detect](image);
-
       item.test(expect, results);
     }
   });
@@ -67,16 +66,17 @@ function shouldGenerateOutput(m: Model, detect: "detect" | "classify") {
 
 objectDetectionModels.map((m) => {
   describe(`Object Detection ${m.description}`, () => {
-    infersProperType(m, "detection");
+    infersProperType(m, ModelType.Detection);
     shouldNotLeak(m, "detect");
     shouldGenerateOutput(m, "detect");
 
     it("detect should generate output with options", async () => {
       const modelPath = path.join(FIXTURES_PATH, m.model);
-      const model = await models.load(modelPath);
+      const model = (await models.load(modelPath)) as DetectionModel;
 
       const imagePath = path.join(FIXTURES_PATH, m.images[0].image);
       const image = fs.readFileSync(imagePath);
+
       const results = await model.detect(image, {
         maxNumberOfBoxes: 1,
         scoreThreshold: 0,
@@ -89,7 +89,7 @@ objectDetectionModels.map((m) => {
 
 classificationModels.map((m) => {
   describe(`Classification ${m.description}`, () => {
-    infersProperType(m, "classification");
+    infersProperType(m, ModelType.Classification);
     shouldNotLeak(m, "classify");
     shouldGenerateOutput(m, "classify");
   });

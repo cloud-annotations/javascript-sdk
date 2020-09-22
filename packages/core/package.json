@@ -1,7 +1,7 @@
 {
   "name": "@cloud-annotations/core",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.1.2",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -1,6 +1,5 @@
 {
   "name": "@cloud-annotations/core",
-  "private": true,
   "version": "0.1.4",
   "main": "dist/index.js",
   "module": "dist/index.js",

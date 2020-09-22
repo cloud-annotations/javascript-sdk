@@ -1,6 +1,6 @@
 {
   "name": "@cloud-annotations/models-node",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^13.0.0",
@@ -23,7 +23,7 @@
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@cloud-annotations/core": "^0.1.4",
+    "@cloud-annotations/core": "^0.1.5",
     "@tensorflow/tfjs-node": "1.4.0"
   },
   "scripts": {

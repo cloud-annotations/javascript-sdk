@@ -3,6 +3,8 @@ import commonjs from "@rollup/plugin-commonjs";
 import sucrase from "@rollup/plugin-sucrase";
 import { terser } from "rollup-plugin-terser";
 
+import pkg from "./package.json";
+
 export default [
   {
     input: "src/index.ts",
@@ -15,11 +17,10 @@ export default [
         transforms: ["typescript"],
       }),
     ],
-    output: {
-      format: "umd",
-      name: "models",
-      file: "dist/models.js",
-    },
+    output: [
+      { file: pkg.main, format: "cjs" },
+      { file: pkg.module, format: "es" },
+    ],
   },
   {
     input: "src/index.ts",

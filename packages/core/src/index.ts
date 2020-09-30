@@ -1,4 +1,6 @@
+// @ts-ignore
 import * as _tf from "@tensorflow/tfjs";
+// @ts-ignore
 import { GraphModel, Rank, Tensor, backend_util } from "@tensorflow/tfjs";
 
 export enum ModelType {
@@ -211,11 +213,12 @@ const runClassificationPrediction = async (
   results.dispose();
   batched.dispose();
 
-  const finalScores = scores.map((score, i) => ({
+  const finalScores = scores.map((score: number, i: number) => ({
     label: labels[i],
     score: score,
   }));
 
+  // @ts-ignore
   finalScores.sort((a, b) => b.score - a.score);
 
   return finalScores;

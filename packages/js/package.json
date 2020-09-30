@@ -2,8 +2,8 @@
   "name": "@cloud-annotations/models",
   "version": "0.1.5",
   "description": "Cloud Annotations models for TensorFlow.js",
-  "main": "dist/models.node.js",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
   "jsdelivr": "dist/models.min.js",
   "unpkg": "dist/models.min.js",
   "types": "dist/index.d.ts",
@@ -49,7 +49,7 @@
     "@tensorflow/tfjs": "1.4.0"
   },
   "scripts": {
-    "build": "yarn clean && rollup -c",
+    "build": "yarn clean && yarn tsc && rollup -c",
     "clean": "rimraf dist",
     "test": "karma start --single-run"
   },

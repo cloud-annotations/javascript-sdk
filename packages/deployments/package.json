@@ -1,6 +1,6 @@
 {
   "name": "@cloud-annotations/deployments",
-  "version": "0.0.1",
+  "version": "0.1.7",
   "license": "MIT",
   "files": [
     "/dist"

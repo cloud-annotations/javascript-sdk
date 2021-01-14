@@ -1,0 +1,36 @@
+{
+  "name": "@cloud-annotations/deployments",
+  "version": "0.0.1",
+  "license": "MIT",
+  "files": [
+    "/dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "ibm-cloud-sdk-core": "^2.7.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-node-resolve": "^8.1.0",
+    "@rollup/plugin-sucrase": "^3.1.0",
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^14.0.14",
+    "chai": "^4.2.0",
+    "lerna": "^3.22.1",
+    "mocha": "^8.0.1",
+    "rollup": "^2.21.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
+  },
+  "scripts": {
+    "test": "mocha -r ts-node/register \"src/**/?(*.)test.ts\"",
+    "build": "yarn clean && yarn tsc && rollup -c",
+    "clean": "rimraf dist"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

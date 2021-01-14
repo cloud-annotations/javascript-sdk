@@ -3,6 +3,11 @@ const test = (length) => (expect, results) => {
 };
 
 module.exports = [
+  // {
+  //   description: "test for experimental tf2 model",
+  //   model: "tf2-trial",
+  //   images: [{ image: "image.jpg", test: test(3) }],
+  // },
   {
     description: "v1.2.x",
     model: "object-detection-model-v1.2.x",

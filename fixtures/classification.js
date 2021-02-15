@@ -24,4 +24,12 @@ module.exports = [
     model: "classification-model-v1.3.x",
     images: [{ image: "image.png", test: test("none") }],
   },
+  {
+    description: "vx.x.x",
+    model: "classification-notebook-custom",
+    images: [
+      { image: "cat.jpeg", test: test("Cork") },
+      { image: "reindeer.jpeg", test: test("Cork") },
+    ],
+  },
 ];

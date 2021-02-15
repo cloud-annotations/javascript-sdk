@@ -9,6 +9,11 @@ module.exports = [
   //   images: [{ image: "image.jpg", test: test(3) }],
   // },
   {
+    description: "heelllppppp",
+    model: "maybe-thumbs-that-doesnt-work",
+    images: [{ image: "image.jpg", test: test(3) }],
+  },
+  {
     description: "v1.2.x",
     model: "object-detection-model-v1.2.x",
     images: [{ image: "image.jpg", test: test(3) }],

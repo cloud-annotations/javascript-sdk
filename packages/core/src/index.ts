@@ -206,7 +206,12 @@ const runClassificationPrediction = async (
     return small.expandDims(0).toFloat();
   });
 
-  const results = graph.execute({ Placeholder: batched }) as Tensor<Rank.R2>;
+  const inputTensor = graph.executor.graph.inputs.find(
+    (i: any) => i.op === "Placeholder"
+  );
+  const results = graph.execute({ [inputTensor.name]: batched }) as Tensor<
+    Rank.R2
+  >;
 
   const scores = results.arraySync()[0];
 

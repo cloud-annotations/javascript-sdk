@@ -1,6 +1,6 @@
 {
   "name": "@cloud-annotations/models-node-gpu",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^13.0.0",

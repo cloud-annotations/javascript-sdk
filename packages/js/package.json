@@ -1,6 +1,6 @@
 {
   "name": "@cloud-annotations/models",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Cloud Annotations models for TensorFlow.js",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

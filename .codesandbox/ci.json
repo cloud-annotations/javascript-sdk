@@ -1,1 +1,7 @@
-{}
+{
+  "buildCommand": "build",
+  "installCommand": "install",
+  "packages": [
+    "packages/*"
+  ]
+}

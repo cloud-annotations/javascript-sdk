@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "postinstall": "lerna bootstrap",
     "changelog": "lerna-changelog",
     "test": "lerna run test",
     "watch": "lerna run --parallel watch",

@@ -176,6 +176,11 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@cloud-annotations/core@^0.1.8":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@cloud-annotations/core/-/core-0.1.9.tgz#773d06efa4b52489718c9429d976e4c91444a8bb"
+  integrity sha512-wNvavRsW9QUjJrqtQskwplv2CFSDm2xWRuUhN2sucGLL1kG0viA1r9pNHcs8rg3w4V3OkCoBoDTcNLK9ALipOA==
+
 "@evocateur/libnpmaccess@^3.1.2":
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/@evocateur/libnpmaccess/-/libnpmaccess-3.1.2.tgz#ecf7f6ce6b004e9f942b098d92200be4a4b1c845"
@@ -3148,9 +3153,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.3.6"
 
 follow-redirects@^1.0.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
-  integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
+  version "1.14.7"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
+  integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
 
 for-in@^1.0.2:
   version "1.0.2"
